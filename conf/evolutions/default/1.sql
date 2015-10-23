@@ -6,15 +6,13 @@
 create table gz_crane (
   id                        bigint auto_increment not null,
   device_id                 varchar(255),
-  name                      varchar(255),
-  type                      varchar(255),
-  pass_code                 varchar(255),
-  status                    tinyint(1) default 0,
-  create_by                 varchar(255),
-  modified_by               varchar(255),
-  create_date               datetime(6),
-  modified_date             datetime(6),
-  user_id                   bigint,
+  imsi                      varchar(255),
+  iccid                     varchar(255),
+  sos_one                   varchar(255),
+  sos_two                   varchar(255),
+  gps_switch                integer,
+  has_new_data              integer,
+  created                   datetime(6),
   constraint pk_gz_crane primary key (id))
 ;
 

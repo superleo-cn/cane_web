@@ -1,5 +1,10 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
+import constants.Constants;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.validation.Constraints.Required;
@@ -8,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -36,6 +42,27 @@ public class CraneData {
     private Integer orientation;
 
     private Date created;
+
+
+    // realtime
+    public static List<CraneData> findRealtimeList(String braceletId, String date) {
+        try {
+            ExpressionList<CraneData> expList = Ebean.find(CraneData.class).where();
+            if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
+                Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
+                Date startDate = DateUtils.addSeconds(lastDate, -5);
+                expList.where().eq("braceletId", braceletId);
+                expList.where().ge("createDate", startDate);
+                expList.where().le("createDate", lastDate);
+            }
+            expList.orderBy("createDate desc");
+            return expList.findList();
+        } catch (Exception e) {
+            logger.error("[findRealtimeList] -> [exception]", e);
+        }
+        return null;
+    }
+
 
     public Long getId() {
         return id;

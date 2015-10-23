@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-POST        /fw/public/gz-datas/getGzData        @controllers.CraneDatas.getGzData()
+POST        /fw/public/gz-datas/getGzData        @controllers.CraneDatas.getGzData(ak: String)
+POST        /fw/public/loginJson                 @controllers.Auths.loginJson()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                        @controllers.Assets.at(path="/public", file)

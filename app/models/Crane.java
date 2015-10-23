@@ -1,5 +1,8 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.ExpressionList;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.validation.Constraints.Required;
@@ -22,20 +25,32 @@ public class Crane {
     @Required(message = "Device Id cannot be empty")
     private String deviceId;
 
-    private String name;
+    private String imsi;
 
-    private String type;
+    private String iccid;
 
-    private String passCode;
+    private String sosOne;
 
-    @Required(message = "Status cannot be empty")
-    private Boolean status;
+    private String sosTwo;
 
-    private String createBy, modifiedBy;
+    private Integer gpsSwitch;
 
-    private Date createDate, modifiedDate;
+    private Integer hasNewData;
 
-    private Long userId;
+    private Date created;
+
+    public static Crane findCraneById(String deviceId) {
+        try {
+            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            if (StringUtils.isNotEmpty(deviceId)) {
+                expList.where().eq("deviceId", deviceId);
+            }
+            return expList.findUnique();
+        } catch (Exception e) {
+            logger.error("[findCraneById] -> [exception]", e);
+        }
+        return null;
+    }
 
     public Long getId() {
         return id;
@@ -53,75 +68,59 @@ public class Crane {
         this.deviceId = deviceId;
     }
 
-    public String getName() {
-        return name;
+    public String getImsi() {
+        return imsi;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImsi(String imsi) {
+        this.imsi = imsi;
     }
 
-    public String getType() {
-        return type;
+    public String getIccid() {
+        return iccid;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIccid(String iccid) {
+        this.iccid = iccid;
     }
 
-    public String getPassCode() {
-        return passCode;
+    public String getSosOne() {
+        return sosOne;
     }
 
-    public void setPassCode(String passCode) {
-        this.passCode = passCode;
+    public void setSosOne(String sosOne) {
+        this.sosOne = sosOne;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public String getSosTwo() {
+        return sosTwo;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setSosTwo(String sosTwo) {
+        this.sosTwo = sosTwo;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public Integer getGpsSwitch() {
+        return gpsSwitch;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setGpsSwitch(Integer gpsSwitch) {
+        this.gpsSwitch = gpsSwitch;
     }
 
-    public String getModifiedBy() {
-        return modifiedBy;
+    public Integer getHasNewData() {
+        return hasNewData;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setHasNewData(Integer hasNewData) {
+        this.hasNewData = hasNewData;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
