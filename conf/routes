@@ -3,6 +3,9 @@
 # ~~~~
 
 # Home page
+GET         /                                    @controllers.Auths.defaults()
+
+# API
 POST        /fw/public/gz-datas/getGzData        @controllers.CraneDatas.getGzData(ak: String)
 POST        /fw/public/loginJson                 @controllers.Auths.loginJson()
 
