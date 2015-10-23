@@ -1,0 +1,72 @@
+{
+	"global" : {
+		"zh" : "中文",
+		"en" : "英文",
+		"prefer_lang" : "语言偏好:",
+		"status_active" : "正常",
+		"status_inactive" : "停用"
+	},
+	"login" : {
+		"title" : "心系手环 | 登录",
+		"header" : "登录",
+		"username" : "用户名",
+		"password" : "密码",
+		"remember" : "记住我",
+		"login" : "登录",
+		"forgot" : "忘记密码",
+		"register" : "注册",
+		"social" : "其他账号登录"
+	},
+	"index" : {
+		"title" : "心系手环 | 仪表盘",
+		"header" : "主页",
+		"toggleNav" : "折叠导航栏",
+		"profile" : "个人信息",
+		"logout" : "注销",
+		"online" : "在线",
+		"dashboard" : "仪表盘",
+		"realtime" : "实时数据",
+		"history" : "历史数据",
+		"cpanel" : "控制面板",
+		"users" : "用户管理",
+		"codes" : "字典表管理",
+		"bracelets" : "手环管理",
+		"about" : "关于我",
+		"temperature_chart" : "体温表",
+		"plus_chart" : "脉搏表",
+		"motion_chart" : "运动表",
+		"blood_pressure_chart" : "血压表",
+	  	"timeline" : "时间轴",
+	  	"location" : "位置追踪",
+	    "event" : "事件"
+	},
+	"users" : {
+		"id" : "ID",
+		"username" : "用户名",
+		"name" : "姓名",
+		"type" : "类型",
+		"date" : "注册日期",
+		"status" : "状态"
+	},
+	"bracelets" : {
+		"id" : "ID",
+		"bracelet_id" : "手环ID",
+		"name" : "手环名称",
+		"username" : "手环主人",
+		"type" : "类型",
+		"date" : "激活日期",
+		"status" : "状态"
+	},
+	"codes" : {
+		"id" : "ID",
+		"key" : "键",
+		"value" : "值",
+		"description" : "描述",
+		"date" : "创建日期",
+		"status" : "状态"
+	},
+	"about" : {
+		"title" : "关于我",
+		"header" : "关于我"
+	}
+}

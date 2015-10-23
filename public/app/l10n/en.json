@@ -1,0 +1,72 @@
+{
+	"global" : {
+		"zh" : "Chinese",
+		"en" : "English",
+		"prefer_lang" : "My prefer language:",
+		"status_active" : "Active",
+		"status_inactive" : "Inactive"
+	},
+	"login" : {
+		"title" : "HBracelet | Login",
+		"header" : "Sign In",
+		"username" : "User ID",
+		"password" : "Password",
+		"remember" : "Remember me",
+		"login" : "Sign me in",
+		"forgot" : "I forgot my password",
+		"register" : "Register a new membership",
+		"social" : "Sign in using social networks"
+	},
+	"index" : {
+		"title" : "HBracelet | Dashboard",
+		"header" : "Home",
+		"toggleNav" : "Toggle navigation",
+		"profile" : "Profile",
+		"logout" : "Sign Out",
+		"online" : "Online",
+		"dashboard" : "Dashboard",
+		"realtime" : "Realtime",
+		"history" : "History",
+		"cpanel" : "Control panel",
+		"users" : "User Management",
+		"bracelets" : "Bracelet Management",
+		"codes" : "Code Management",
+		"about" : "About",
+		"temperature_chart" : "Temperature Chart",
+		"plus_chart" : "Plus Chart",
+		"motion_chart" : "Motion Chart",
+		"blood_pressure_chart" : "Blood Pressure Chart",
+	  	"timeline" : "Timeline",
+	  	"location" : "GPS",
+	  	"event" : "Event"
+	},
+	"users" : {
+		"id" : "ID",
+		"username" : "Username",
+		"name" : "Name",
+		"type" : "Type",
+		"date" : "Register Date",
+		"status" : "Status"
+	},
+	"bracelets" : {
+		"id" : "ID",
+		"bracelet_id" : "Bracelet ID",
+		"name" : "Name",
+		"username" : "Owner",
+		"type" : "Type",
+		"date" : "Active Date",
+		"status" : "Status"
+	},
+	"codes" : {
+		"id" : "ID",
+		"key" : "Key",
+		"value" : "Value",
+		"description" : "Description",
+		"date" : "Create Date",
+		"status" : "Status"
+	},
+	"about" : {
+		"title" : "About",
+		"header" : "Home"
+	}
+}

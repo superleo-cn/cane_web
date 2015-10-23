@@ -11,7 +11,11 @@ bin/
 tmp/
 test-result
 server.pid
+# idea
+.idea
 *.iml
 *.eml
 /dist/
 .cache
+*.sql
+
