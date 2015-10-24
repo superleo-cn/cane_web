@@ -3,17 +3,7 @@
 
 # --- !Ups
 
-create table gz_contact (
-  id                        bigint auto_increment not null,
-  device_id                 varchar(255),
-  name                      varchar(255),
-  cell_number               varchar(255),
-  status                    tinyint(1) default 0,
-  created                   datetime(6),
-  constraint pk_gz_contact primary key (id))
-;
-
-create table gz_crane (
+create table gz_cane (
   id                        bigint auto_increment not null,
   device_id                 varchar(255),
   imsi                      varchar(255),
@@ -23,7 +13,17 @@ create table gz_crane (
   gps_switch                integer,
   has_new_data              integer,
   created                   datetime(6),
-  constraint pk_gz_crane primary key (id))
+  constraint pk_gz_cane primary key (id))
+;
+
+create table gz_contact (
+  id                        bigint auto_increment not null,
+  device_id                 varchar(255),
+  name                      varchar(255),
+  cell_number               varchar(255),
+  status                    tinyint(1) default 0,
+  created                   datetime(6),
+  constraint pk_gz_contact primary key (id))
 ;
 
 create table gps_collection (
@@ -48,9 +48,9 @@ create table gps_collection (
 
 SET FOREIGN_KEY_CHECKS=0;
 
-drop table gz_contact;
+drop table gz_cane;
 
-drop table gz_crane;
+drop table gz_contact;
 
 drop table gps_collection;
 

@@ -15,10 +15,10 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "gz_crane")
-public class Crane {
+@Table(name = "gz_cane")
+public class Cane {
 
-    final static Logger logger = LoggerFactory.getLogger(Crane.class);
+    final static Logger logger = LoggerFactory.getLogger(Cane.class);
 
     @Id
     private Long id;
@@ -40,9 +40,9 @@ public class Crane {
 
     private Date created;
 
-    public static Crane findCraneById(String deviceId) {
+    public static Cane findCraneById(String deviceId) {
         try {
-            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
             if (StringUtils.isNotEmpty(deviceId)) {
                 expList.where().eq("deviceId", deviceId);
                 return expList.findUnique();
@@ -56,10 +56,10 @@ public class Crane {
 
     public static boolean update(CraneForm crane) {
         try {
-            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
             if (StringUtils.isNotEmpty(crane.getDevice_id())) {
                 expList.where().eq("deviceId", crane.getDevice_id());
-                Crane db = expList.findUnique();
+                Cane db = expList.findUnique();
                 db.setSosOne(crane.getSos_one());
                 db.setSosTwo(crane.getSos_two());
                 db.setGpsSwitch(crane.getGps_switch());
@@ -75,10 +75,10 @@ public class Crane {
 
     public static boolean updateSos(CraneForm crane) {
         try {
-            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
             if (StringUtils.isNotEmpty(crane.getDevice_id())) {
                 expList.where().eq("deviceId", crane.getDevice_id());
-                Crane db = expList.findUnique();
+                Cane db = expList.findUnique();
                 db.setSosOne(crane.getSos_one());
                 db.setSosTwo(crane.getSos_two());
                 Ebean.update(db);

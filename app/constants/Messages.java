@@ -15,7 +15,7 @@ public class Messages {
 
     // Food Message
     public static String CRANE_DATA_LIST_ERROR = "[Fetch crane data List Error]";
-    public static String CRANE_DATA_LIST_ERROR_MESSAGE = "[System]-[Error]-[Crane({}) requests crane data list failed. The error is {}.]";
+    public static String CRANE_DATA_LIST_ERROR_MESSAGE = "[System]-[Error]-[Cane({}) requests crane data list failed. The error is {}.]";
 
 
 }

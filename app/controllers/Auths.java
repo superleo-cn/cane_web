@@ -3,7 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
-import models.Crane;
+import models.Cane;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class Auths extends Basic {
         try {
             deviceId = Form.form().bindFromRequest().get("device_id");
             if (StringUtils.isNotEmpty(deviceId)) {
-                Crane data = Crane.findCraneById(deviceId);
+                Cane data = Cane.findCraneById(deviceId);
                 if (data != null) {
                     String token = TokenUtils.getToken(deviceId);
                     logger.info("Token====>" + token);

@@ -5,8 +5,8 @@ import constants.Constants;
 import constants.Messages;
 import forms.CraneForm;
 import inteceptors.TokenInterceptor;
+import models.Cane;
 import models.Contact;
-import models.Crane;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +22,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @With(TokenInterceptor.class)
-public class Cranes extends Basic {
+public class Canes extends Basic {
 
-    final static Logger logger = LoggerFactory.getLogger(Cranes.class);
+    final static Logger logger = LoggerFactory.getLogger(Canes.class);
 
     // 查询状态信息接口
     public Result getGzData() {
         String deviceId = Form.form().bindFromRequest().get("device_id");
         ObjectNode result = Json.newObject();
         try {
-            Crane data = Crane.findCraneById(deviceId);
+            Cane data = Cane.findCraneById(deviceId);
             if (data != null) {
                 result.put("sos_one", data.getSosOne());
                 result.put("sos_two", data.getSosTwo());
@@ -61,9 +61,9 @@ public class Cranes extends Basic {
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
-                Crane dbCrane = Crane.findCraneById(form.getDevice_id());
-                if (dbCrane != null) {
-                    if (Crane.update(form)) {
+                Cane dbCane = Cane.findCraneById(form.getDevice_id());
+                if (dbCane != null) {
+                    if (Cane.update(form)) {
                         result.put(Constants.STATUS, Constants.MSG_SUCCESS);
                     } else {
                         result.put(Constants.STATUS, Constants.FAILURE);
@@ -88,12 +88,12 @@ public class Cranes extends Basic {
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
-                Crane dbCrane = Crane.findCraneById(form.getDevice_id());
-                if (dbCrane != null) {
+                Cane dbCane = Cane.findCraneById(form.getDevice_id());
+                if (dbCane != null) {
                     // sos phones
                     Map sosPhones = new HashMap<>();
-                    sosPhones.put("sos_one", dbCrane.getSosOne());
-                    sosPhones.put("sos_two", dbCrane.getSosTwo());
+                    sosPhones.put("sos_one", dbCane.getSosOne());
+                    sosPhones.put("sos_two", dbCane.getSosTwo());
                     result.replace("sos_phone", Json.toJson(sosPhones));
 
                     // contact list
@@ -131,8 +131,8 @@ public class Cranes extends Basic {
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
-                Crane dbCrane = Crane.findCraneById(form.getDevice_id());
-                if (dbCrane != null) {
+                Cane dbCane = Cane.findCraneById(form.getDevice_id());
+                if (dbCane != null) {
                     if (Contact.update(form)) {
                         result.put(Constants.STATUS, Constants.MSG_SUCCESS);
                     } else {

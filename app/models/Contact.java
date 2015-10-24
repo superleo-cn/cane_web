@@ -52,7 +52,7 @@ public class Contact {
 
     public static boolean update(CraneForm crane) {
         try {
-            if (Crane.updateSos(crane)) {
+            if (Cane.updateSos(crane)) {
                 String arrayStr = crane.getPhone_num();
                 if (StringUtils.isNotEmpty(arrayStr)) {
                     String[] contactStr = arrayStr.split(",");
