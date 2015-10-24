@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table gz_contact (
+  id                        bigint auto_increment not null,
+  device_id                 varchar(255),
+  name                      varchar(255),
+  cell_number               varchar(255),
+  status                    tinyint(1) default 0,
+  created                   datetime(6),
+  constraint pk_gz_contact primary key (id))
+;
+
 create table gz_crane (
   id                        bigint auto_increment not null,
   device_id                 varchar(255),
@@ -26,6 +36,7 @@ create table gps_collection (
   lac                       varchar(255),
   plmn                      varchar(255),
   orientation               integer,
+  flag                      integer,
   created                   datetime(6),
   constraint pk_gps_collection primary key (id))
 ;
@@ -36,6 +47,8 @@ create table gps_collection (
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
+
+drop table gz_contact;
 
 drop table gz_crane;
 

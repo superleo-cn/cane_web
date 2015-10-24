@@ -15,13 +15,18 @@ public class Constants {
     public static String CODE_SUCCESS = "200";
     public static String CODE_NOT_FOUND = "404";
     public static String CODE_FAILURE = "500";
-    public static String DATAS = "datas";
+    public static String DATA = "data";
     public static String STATUS = "status";
     public static String TOKEN = "token";
     public static String MESSAGE = "message";
+    public static String PAGE_COUNT = "pageCount";
     public static String COUNT = "count";
     public static String HAVE_MORE = "havemore";
     public static String NA = "N.A.";
+
+    public static String MSG_NO_REGISTER = "Not register";
+    public static String MSG_SIM_ERROR = "Sim error";
+    public static String MSG_SUCCESS = "Success";
 
     public static String YES = "1";
     public static String NO = "0";
@@ -34,6 +39,7 @@ public class Constants {
     public static String PATTERN_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     public static String PATTERN_YYYYMMDD = "yyyyMMdd";
     public static String PATTERN_YYYYMMDD_SLASH = "yyyy/MM/dd";
+    public static String PATTERN_YYYYMMDDHHMMSS_LONG = "yyyy-MM-dd HH:mm:ss";
 
     // current user info
     public static String USERTYPE_ADMIN = "Admin";

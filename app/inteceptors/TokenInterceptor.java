@@ -21,7 +21,7 @@ public class TokenInterceptor extends Action.Simple {
 
     @Override
     public F.Promise<Result> call(Http.Context ctx) throws Throwable {
-        String deviceId = Form.form().bindFromRequest().get("deviceId");
+        String deviceId = Form.form().bindFromRequest().get("device_id");
         String token = ctx.request().getQueryString("ak");
         if (!TokenUtils.compareToken(deviceId, token)) {
             final ObjectNode result = Json.newObject();

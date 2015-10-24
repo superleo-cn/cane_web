@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import forms.CraneForm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,12 +45,32 @@ public class Crane {
             ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
             if (StringUtils.isNotEmpty(deviceId)) {
                 expList.where().eq("deviceId", deviceId);
+                return expList.findUnique();
             }
-            return expList.findUnique();
+            return null;
         } catch (Exception e) {
             logger.error("[findCraneById] -> [exception]", e);
         }
         return null;
+    }
+
+    public static boolean update(CraneForm crane) {
+        try {
+            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            if (StringUtils.isNotEmpty(crane.getDevice_id())) {
+                expList.where().eq("deviceId", crane.getDevice_id());
+                Crane db = expList.findUnique();
+                db.setSosOne(crane.getSos_one());
+                db.setSosTwo(crane.getSos_two());
+                db.setGpsSwitch(crane.getGps_switch());
+                Ebean.update(db);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            logger.error("[findCraneById] -> [exception]", e);
+        }
+        return false;
     }
 
     public Long getId() {

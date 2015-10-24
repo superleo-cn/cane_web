@@ -20,7 +20,7 @@ public class Auths extends Basic {
         ObjectNode result = Json.newObject();
         String deviceId = null;
         try {
-            deviceId = Form.form().bindFromRequest().get("deviceId");
+            deviceId = Form.form().bindFromRequest().get("device_id");
             if (StringUtils.isNotEmpty(deviceId)) {
                 Crane data = Crane.findCraneById(deviceId);
                 if (data != null) {

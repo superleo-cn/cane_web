@@ -6,59 +6,63 @@ import java.util.List;
 /**
  * @ Sep 9, 2009 9:50:41 AM @ [PaginationList]
  */
-public class Pagination {
+public class Pagination<T> {
 
-	public List<?> recordList = new ArrayList<>();
+    public List<T> recordList = new ArrayList<>();
 
-	public long recordCount = 0;
+    public long recordCount = 0;
 
-	public long pageCount = 0;
+    public long pageCount = 0;
 
-	public int pageSize = 15;
+    public int pageSize = 5;
 
-	public int currentPage = 1;
+    public int currentPage = 1;
 
-	public Pagination() {
-	}
+    public Pagination() {
+    }
 
-	public List<?> getRecordList() {
-		return recordList;
-	}
+    public Pagination(int currentPage) {
+        this.currentPage = currentPage;
+    }
 
-	public void setRecordList(List<?> recordList) {
-		this.recordList = recordList;
-	}
+    public List<T> getRecordList() {
+        return recordList;
+    }
 
-	public long getRecordCount() {
-		return recordCount;
-	}
+    public void setRecordList(List<T> recordList) {
+        this.recordList = recordList;
+    }
 
-	public void setRecordCount(long recordCount) {
-		this.recordCount = recordCount;
-	}
+    public long getRecordCount() {
+        return recordCount;
+    }
 
-	public long getPageCount() {
-		return pageCount;
-	}
+    public void setRecordCount(long recordCount) {
+        this.recordCount = recordCount;
+    }
 
-	public void setPageCount(long pageCount) {
-		this.pageCount = pageCount;
-	}
+    public long getPageCount() {
+        return pageCount;
+    }
 
-	public int getPageSize() {
-		return pageSize;
-	}
+    public void setPageCount(long pageCount) {
+        this.pageCount = pageCount;
+    }
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
+    public int getPageSize() {
+        return pageSize;
+    }
 
-	public int getCurrentPage() {
-		return currentPage;
-	}
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 
 }

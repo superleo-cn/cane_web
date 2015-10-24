@@ -2,25 +2,25 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.PagedList;
 import constants.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import play.data.validation.Constraints.Required;
+import utils.Pagination;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 
 @Entity
 @Table(name = "gps_collection")
-public class CraneData {
+public class GPSData {
 
-    final static Logger logger = LoggerFactory.getLogger(CraneData.class);
+    final static Logger logger = LoggerFactory.getLogger(GPSData.class);
 
     @Id
     private Long id;
@@ -41,28 +41,48 @@ public class CraneData {
 
     private Integer orientation;
 
+    private Integer flag;
+
     private Date created;
 
-
-    // realtime
-    public static List<CraneData> findRealtimeList(String braceletId, String date) {
+    public static Pagination findGPSByDate(Pagination pagination, String deviceId, String date) {
         try {
-            ExpressionList<CraneData> expList = Ebean.find(CraneData.class).where();
-            if (StringUtils.isNotEmpty(braceletId) && StringUtils.isNotEmpty(date)) {
-                Date lastDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
-                Date startDate = DateUtils.addSeconds(lastDate, -5);
-                expList.where().eq("braceletId", braceletId);
-                expList.where().ge("createDate", startDate);
-                expList.where().le("createDate", lastDate);
+            pagination = pagination == null ? new Pagination() : pagination;
+            ExpressionList<GPSData> expList = Ebean.find(GPSData.class).where();
+            PagedList<GPSData> pagingList = expList.findPagedList(pagination.currentPage - 1, pagination.pageSize);
+            if (StringUtils.isNotEmpty(deviceId) && StringUtils.isNotEmpty(date)) {
+                Date startDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
+                expList.where().eq("deviceId", deviceId);
+                expList.where().ge("created", startDate);
+            } else {
+                return pagination;
             }
-            expList.orderBy("createDate desc");
-            return expList.findList();
+            expList.orderBy("created asc");
+            pagination.recordList = pagingList.getList();
+            pagination.pageCount = pagingList.getTotalPageCount();
+            pagination.recordCount = pagingList.getTotalRowCount();
+            return pagination;
         } catch (Exception e) {
-            logger.error("[findRealtimeList] -> [exception]", e);
+            logger.error("[findGPSByDate] -> [exception]", e);
         }
         return null;
     }
 
+    public static GPSData findGPSByLatest(String deviceId) {
+        try {
+            ExpressionList<GPSData> expList = Ebean.find(GPSData.class).where();
+            if (StringUtils.isNotEmpty(deviceId)) {
+                expList.where().eq("deviceId", deviceId);
+                expList.orderBy("created desc");
+            } else {
+                return null;
+            }
+            return expList.setMaxRows(1).findUnique();
+        } catch (Exception e) {
+            logger.error("[findGPSByLatest] -> [exception]", e);
+        }
+        return null;
+    }
 
     public Long getId() {
         return id;
@@ -142,5 +162,13 @@ public class CraneData {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 }
