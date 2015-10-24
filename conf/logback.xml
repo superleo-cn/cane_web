@@ -8,14 +8,32 @@
     </encoder>
   </appender>
 
+  <property name="LOG_HOME" value="logs" />
+
+  <appender name="SYSTEM_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_HOME}/running.log</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%level] %logger{35} - %msg%n</pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>${LOG_HOME}/running.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>10MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+  </appender>
+
   <!--
     The logger name is typically the Java/Scala package name.
     This configures the log level to log at for a package and its children packages.
   -->
   <logger name="play" level="INFO" />
-  <logger name="application" level="DEBUG" />
+  <logger name="application" level="INFO" />
 
   <root level="INFO">
+    <appender-ref ref="SYSTEM_LOG" />
     <appender-ref ref="STDOUT" />
   </root>
 
