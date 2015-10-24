@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
+import forms.CraneForm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,39 @@ public class Contact {
             logger.error("[findCraneById] -> [exception]", e);
         }
         return null;
+    }
+
+    public static boolean update(CraneForm crane) {
+        try {
+            if (Crane.updateSos(crane)) {
+                String arrayStr = crane.getPhone_num();
+                if (StringUtils.isNotEmpty(arrayStr)) {
+                    String[] contactStr = arrayStr.split(",");
+                    if (contactStr != null && contactStr.length > 0) {
+                        // delete first
+                        List<Contact> list = Ebean.find(Contact.class).where().eq("deviceId", crane.getDevice_id()).findList();
+                        Ebean.delete(list);
+                        // insert
+                        for (String contact : contactStr) {
+                            String[] contactArr = contact.split(":");
+                            if (contactArr != null && contactArr.length > 0) {
+                                Contact newContact = new Contact();
+                                newContact.setName(contactArr[0]);
+                                newContact.setCellNumber(contactArr[1]);
+                                newContact.setCreated(new Date());
+                                newContact.setDeviceId(crane.getDevice_id());
+                                newContact.setStatus(Boolean.TRUE);
+                                Ebean.save(newContact);
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("[findCraneById] -> [exception]", e);
+        }
+        return false;
     }
 
     public Long getId() {

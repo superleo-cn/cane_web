@@ -124,4 +124,31 @@ public class Cranes extends Basic {
         return ok(result);
     }
 
+
+    // 更新信息接口
+    public Result setContacts() {
+        CraneForm form = Form.form(CraneForm.class).bindFromRequest().get();
+        ObjectNode result = Json.newObject();
+        try {
+            if (form != null) {
+                Crane dbCrane = Crane.findCraneById(form.getDevice_id());
+                if (dbCrane != null) {
+                    if (Contact.update(form)) {
+                        result.put(Constants.STATUS, Constants.MSG_SUCCESS);
+                    } else {
+                        result.put(Constants.STATUS, Constants.FAILURE);
+                    }
+                } else {
+                    result.put(Constants.STATUS, Constants.MSG_NO_REGISTER);
+                }
+            } else {
+                result.put(Constants.STATUS, Constants.FAILURE);
+            }
+        } catch (Exception e) {
+            result.put(Constants.STATUS, Constants.ERROR);
+            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+        }
+        return ok(result);
+    }
+
 }

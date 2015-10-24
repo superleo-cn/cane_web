@@ -14,6 +14,8 @@ public class CraneForm {
 
     private Integer gps_switch;
 
+    private String phone_num;
+
     public String getDevice_id() {
         return device_id;
     }
@@ -60,5 +62,13 @@ public class CraneForm {
 
     public void setGps_switch(Integer gps_switch) {
         this.gps_switch = gps_switch;
+    }
+
+    public String getPhone_num() {
+        return phone_num;
+    }
+
+    public void setPhone_num(String phone_num) {
+        this.phone_num = phone_num;
     }
 }

@@ -73,6 +73,24 @@ public class Crane {
         return false;
     }
 
+    public static boolean updateSos(CraneForm crane) {
+        try {
+            ExpressionList<Crane> expList = Ebean.find(Crane.class).where();
+            if (StringUtils.isNotEmpty(crane.getDevice_id())) {
+                expList.where().eq("deviceId", crane.getDevice_id());
+                Crane db = expList.findUnique();
+                db.setSosOne(crane.getSos_one());
+                db.setSosTwo(crane.getSos_two());
+                Ebean.update(db);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            logger.error("[findCraneById] -> [exception]", e);
+        }
+        return false;
+    }
+
     public Long getId() {
         return id;
     }

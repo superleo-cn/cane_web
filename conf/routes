@@ -9,6 +9,7 @@ GET         /                                                                   
 POST        /fw/public/gz-datas/getGzData                                                  @controllers.Cranes.getGzData()
 POST        /fw/public/gz-datas/updatedata                                                 @controllers.Cranes.updatedata()
 POST        /fw/public/gz-datas/getGzContact                                               @controllers.Cranes.getGzContact()
+POST        /fw/public/gz-datas/setContacts                                                @controllers.Cranes.setContacts()
 
 GET         /fw/public/gps-collections/devid_filter/:deviceId/time/:time/page/:page        @controllers.GPSDatas.findGPSByDate(deviceId: String, time: String, page: Integer)
 GET         /fw/public/gps-collections/last_record/1/devid_filter/:deviceId                @controllers.GPSDatas.findGPSByLatest(deviceId: String)
