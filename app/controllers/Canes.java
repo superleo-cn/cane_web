@@ -3,11 +3,13 @@ package controllers;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
-import forms.CraneForm;
+import forms.CaneForm;
 import inteceptors.TokenInterceptor;
 import models.Cane;
 import models.Contact;
+import models.Device;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
@@ -21,12 +23,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@With(TokenInterceptor.class)
 public class Canes extends Basic {
 
     final static Logger logger = LoggerFactory.getLogger(Canes.class);
 
-    // 查询状态信息接口
+
+    /**
+     * [APP] - [Interface] - [查询状态信息接口]
+     *
+     * @return
+     */
+    @With(TokenInterceptor.class)
     public Result getGzData() {
         String deviceId = Form.form().bindFromRequest().get("device_id");
         ObjectNode result = Json.newObject();
@@ -55,9 +62,14 @@ public class Canes extends Basic {
     }
 
 
-    // 更新信息接口
+    /**
+     * [APP] - [Interface] - [更新信息接口]
+     *
+     * @return
+     */
+    @With(TokenInterceptor.class)
     public Result updatedata() {
-        CraneForm form = Form.form(CraneForm.class).bindFromRequest().get();
+        CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
@@ -81,10 +93,14 @@ public class Canes extends Basic {
         return ok(result);
     }
 
-
-    // 查询状态信息接口
+    /**
+     * [APP] - [Interface] - [查询用户联系人信息接口]
+     *
+     * @return
+     */
+    @With(TokenInterceptor.class)
     public Result getGzContact() {
-        CraneForm form = Form.form(CraneForm.class).bindFromRequest().get();
+        CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
@@ -125,9 +141,14 @@ public class Canes extends Basic {
     }
 
 
-    // 更新信息接口
+    /**
+     * [APP] - [Interface] - [更新联系人信息接口]
+     *
+     * @return
+     */
+    @With(TokenInterceptor.class)
     public Result setContacts() {
-        CraneForm form = Form.form(CraneForm.class).bindFromRequest().get();
+        CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
         ObjectNode result = Json.newObject();
         try {
             if (form != null) {
@@ -151,4 +172,60 @@ public class Canes extends Basic {
         return ok(result);
     }
 
+
+    /**
+     * [CANE] - [Interface] - [手杖开机上传imsi和iccid接口]
+     *
+     * @return
+     */
+    public Result firstUpload() {
+        CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
+        ObjectNode result = Json.newObject();
+        try {
+            if (form != null) {
+                Cane dbCane = Cane.findCraneById(form.getDevice_id());
+                if (dbCane == null) {
+                    // 第一次注册
+                    Device dbDevice = Device.findDeviceById(form.getDevice_id());
+                    if (dbDevice != null) {
+                        if (Cane.save(form)) {
+                            // sos phones
+                            dbCane = Cane.findCraneById(form.getDevice_id());
+                            Map sosPhones = new HashMap<>();
+                            sosPhones.put("sos_one", dbCane.getSosOne());
+                            sosPhones.put("sos_two", dbCane.getSosTwo());
+                            sosPhones.put("gps_switch", dbCane.getGpsSwitch());
+                            result.replace(Constants.DATA, Json.toJson(sosPhones));
+                            // Time
+                            result.replace("time_init", Json.toJson(DateFormatUtils.format(dbCane.getCreated(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
+                            // status
+                            result.put(Constants.STATUS, Constants.MSG_SUCCESS);
+                            // imsiback
+                            result.put(Constants.SIGN, "imsiback");
+                        }
+                    } else {
+                        // 发送失败，设备号不存在
+                        // status
+                        result.put(Constants.STATUS, Constants.MSG_ILLEGAL);
+                        // imsiback
+                        result.put(Constants.SIGN, "imsiback");
+                    }
+                } else {
+                    // 否则直接返回第一次开机数据
+                    // status
+                    result.put(Constants.STATUS, Constants.MSG_SUCCESS);
+                    // imsiback
+                    result.put(Constants.SIGN, "imsiback");
+                    // Time
+                    result.replace("time_init", Json.toJson(DateFormatUtils.format(dbCane.getCreated(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
+                }
+            } else {
+                result.put(Constants.STATUS, Constants.FAILURE);
+            }
+        } catch (Exception e) {
+            result.put(Constants.STATUS, Constants.ERROR);
+            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+        }
+        return ok(result);
+    }
 }

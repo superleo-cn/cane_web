@@ -2,7 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
-import forms.CraneForm;
+import forms.CaneForm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class Contact {
         return null;
     }
 
-    public static boolean update(CraneForm crane) {
+    public static boolean update(CaneForm crane) {
         try {
             if (Cane.updateSos(crane)) {
                 String arrayStr = crane.getPhone_num();

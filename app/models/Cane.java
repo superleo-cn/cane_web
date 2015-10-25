@@ -2,7 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
-import forms.CraneForm;
+import forms.CaneForm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,19 +42,31 @@ public class Cane {
 
     public static Cane findCraneById(String deviceId) {
         try {
-            ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
-            if (StringUtils.isNotEmpty(deviceId)) {
-                expList.where().eq("deviceId", deviceId);
-                return expList.findUnique();
-            }
-            return null;
+            return Ebean.find(Cane.class).where().eq("deviceId", deviceId).findUnique();
         } catch (Exception e) {
             logger.error("[findCraneById] -> [exception]", e);
         }
         return null;
     }
 
-    public static boolean update(CraneForm crane) {
+    public static boolean save(CaneForm crane) {
+        try {
+            Cane db = new Cane();
+            db.setCreated(new Date());
+            db.setDeviceId(crane.getDevice_id());
+            db.setIccid(crane.getIccid());
+            db.setImsi(crane.getImsi());
+            db.setGpsSwitch(1);
+            db.setHasNewData(1);
+            Ebean.save(db);
+            return true;
+        } catch (Exception e) {
+            logger.error("[save] -> [exception]", e);
+        }
+        return false;
+    }
+
+    public static boolean update(CaneForm crane) {
         try {
             ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
             if (StringUtils.isNotEmpty(crane.getDevice_id())) {
@@ -73,7 +85,7 @@ public class Cane {
         return false;
     }
 
-    public static boolean updateSos(CraneForm crane) {
+    public static boolean updateSos(CaneForm crane) {
         try {
             ExpressionList<Cane> expList = Ebean.find(Cane.class).where();
             if (StringUtils.isNotEmpty(crane.getDevice_id())) {

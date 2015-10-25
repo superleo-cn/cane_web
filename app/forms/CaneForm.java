@@ -1,6 +1,6 @@
 package forms;
 
-public class CraneForm {
+public class CaneForm {
 
     private String device_id;
 

@@ -21,7 +21,11 @@ public class GPSDatas extends Basic {
 
     final static Logger logger = LoggerFactory.getLogger(GPSDatas.class);
 
-    // 查询状态信息接口
+    /**
+     * [APP] - [Interface] - [查询GPS信息]
+     *
+     * @return
+     */
     public Result findGPSByDate(String deviceId, String time, Integer page) {
         // token checking
         Result tokenResult = isValidToken(deviceId);
@@ -76,7 +80,11 @@ public class GPSDatas extends Basic {
         return ok(result);
     }
 
-    // 查询状态信息接口
+    /**
+     * [APP] - [Interface] - [查询GPS信息(最近一条)]
+     *
+     * @return
+     */
     public Result findGPSByLatest(String deviceId) {
         // token checking
         Result tokenResult = isValidToken(deviceId);

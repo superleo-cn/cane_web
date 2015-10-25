@@ -20,6 +20,7 @@ public class Constants {
     public static String TOKEN = "token";
     public static String MESSAGE = "message";
     public static String PAGE_COUNT = "pageCount";
+    public static String SIGN = "sign";
     public static String COUNT = "count";
     public static String HAVE_MORE = "havemore";
     public static String NA = "N.A.";
@@ -27,6 +28,7 @@ public class Constants {
     public static String MSG_NO_REGISTER = "Not register";
     public static String MSG_SIM_ERROR = "Sim error";
     public static String MSG_SUCCESS = "Success";
+    public static String MSG_ILLEGAL = "Illegal";
 
     public static String YES = "1";
     public static String NO = "0";

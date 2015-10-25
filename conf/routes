@@ -5,16 +5,19 @@
 # Home page
 GET         /                                                                              @controllers.Auths.defaults()
 
-# API
+# APP API
 POST        /fw/public/gz-datas/getGzData                                                  @controllers.Canes.getGzData()
 POST        /fw/public/gz-datas/updatedata                                                 @controllers.Canes.updatedata()
 POST        /fw/public/gz-datas/getGzContact                                               @controllers.Canes.getGzContact()
 POST        /fw/public/gz-datas/setContacts                                                @controllers.Canes.setContacts()
+POST        /fw/public/loginJson                                                           @controllers.Auths.loginJson()
 
 GET         /fw/public/gps-collections/devid_filter/:deviceId/time/:time/page/:page        @controllers.GPSDatas.findGPSByDate(deviceId: String, time: String, page: Integer)
 GET         /fw/public/gps-collections/last_record/1/devid_filter/:deviceId                @controllers.GPSDatas.findGPSByLatest(deviceId: String)
 
-POST        /fw/public/loginJson                                                           @controllers.Auths.loginJson()
+# CANE APP
+POST        /fw/public/api/gz-data-apis/firstUpload                                        @controllers.Canes.firstUpload()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                  @controllers.Assets.at(path="/public", file)

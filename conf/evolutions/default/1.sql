@@ -26,6 +26,19 @@ create table gz_contact (
   constraint pk_gz_contact primary key (id))
 ;
 
+create table device_to_sim (
+  id                        bigint auto_increment not null,
+  device_id                 varchar(255),
+  imsi                      varchar(255),
+  iccid                     varchar(255),
+  phone_num                 varchar(255),
+  password                  varchar(255),
+  flag                      integer,
+  resetcode                 varchar(255),
+  created                   datetime(6),
+  constraint pk_device_to_sim primary key (id))
+;
+
 create table gps_collection (
   id                        bigint auto_increment not null,
   device_id                 varchar(255),
@@ -51,6 +64,8 @@ SET FOREIGN_KEY_CHECKS=0;
 drop table gz_cane;
 
 drop table gz_contact;
+
+drop table device_to_sim;
 
 drop table gps_collection;
 
