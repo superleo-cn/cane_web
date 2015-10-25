@@ -4,11 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
+import forms.GPSForm;
+import models.Cane;
 import models.GPSData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 import utils.Pagination;
@@ -75,7 +78,7 @@ public class GPSDatas extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
         }
         return ok(result);
     }
@@ -123,7 +126,51 @@ public class GPSDatas extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
+        }
+        return ok(result);
+    }
+
+
+    /**
+     * [CANE] - [Interface] - [查询GPS信息(最近一条)]
+     *
+     * @return
+     */
+    public Result addGPSData() {
+        ObjectNode result = Json.newObject();
+        GPSForm form = Form.form(GPSForm.class).bindFromRequest().get();
+        try {
+            Cane dbCane = Cane.findCraneById(form.getDevice_id());
+            if (dbCane != null) {
+                // save GPS data
+                GPSData.save(form);
+                if (dbCane.getHasNewData() == 1) {
+                    // header
+                    result.replace(Constants.SIGN, Json.toJson("heart"));
+                    result.replace(Constants.STATUS, Json.toJson(Constants.MSG_SUCCESS));
+
+                    // sos phones
+                    Map sosPhones = new HashMap<>();
+                    sosPhones.put("sos_one", dbCane.getSosOne());
+                    sosPhones.put("sos_two", dbCane.getSosTwo());
+                    sosPhones.put("gps_switch", dbCane.getGpsSwitch());
+                    result.replace(Constants.DATA, Json.toJson(sosPhones));
+
+                    // update to no new data
+                    Cane.updateStatus(dbCane, Constants.HAS_NEW_DATA_NO);
+                } else {
+                    result.replace(Constants.SIGN, Json.toJson("hrt_no"));
+                    result.replace(Constants.STATUS, Json.toJson(Constants.MSG_NO));
+                }
+            } else {
+                result.replace(Constants.SIGN, Json.toJson("error"));
+                result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
+            }
+        } catch (Exception e) {
+            result.replace(Constants.SIGN, Json.toJson("error"));
+            result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
         }
         return ok(result);
     }

@@ -80,7 +80,7 @@ public class Cane {
             }
             return false;
         } catch (Exception e) {
-            logger.error("[findCraneById] -> [exception]", e);
+            logger.error("[update] -> [exception]", e);
         }
         return false;
     }
@@ -98,7 +98,21 @@ public class Cane {
             }
             return false;
         } catch (Exception e) {
-            logger.error("[findCraneById] -> [exception]", e);
+            logger.error("[updateSos] -> [exception]", e);
+        }
+        return false;
+    }
+
+    public static boolean updateStatus(Cane cane, Integer status) {
+        try {
+            if (cane != null && cane.getId() != null) {
+                cane.setHasNewData(status);
+                Ebean.update(cane);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            logger.error("[updateStatus] -> [exception]", e);
         }
         return false;
     }

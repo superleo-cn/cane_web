@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.PagedList;
 import constants.Constants;
+import forms.GPSForm;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -82,6 +83,27 @@ public class GPSData {
             logger.error("[findGPSByLatest] -> [exception]", e);
         }
         return null;
+    }
+
+    public static boolean save(GPSForm form) {
+        try {
+            GPSData db = new GPSData();
+            db.setCreated(new Date());
+            db.setDeviceId(form.getDevice_id());
+            db.setAcc(form.getAcc());
+            db.setCellId(form.getCellId());
+            db.setFlag(form.getFlag());
+            db.setLac(form.getLac());
+            db.setLatitude(form.getLatitude());
+            db.setLongitude(form.getLongitude());
+            db.setOrientation(form.getOrientation());
+            db.setPlmn(form.getPlmn());
+            Ebean.save(db);
+            return true;
+        } catch (Exception e) {
+            logger.error("[save] -> [exception]", e);
+        }
+        return false;
     }
 
     public Long getId() {

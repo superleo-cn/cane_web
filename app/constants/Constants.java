@@ -29,6 +29,7 @@ public class Constants {
     public static String MSG_SIM_ERROR = "Sim error";
     public static String MSG_SUCCESS = "Success";
     public static String MSG_ILLEGAL = "Illegal";
+    public static String MSG_NO = "NO";
 
     public static String YES = "1";
     public static String NO = "0";
@@ -56,5 +57,9 @@ public class Constants {
     public static String CURRENT_ROLE = "current_role";
     public static String CURRENT_CREATE_DATE = "current_create_date";
     public static String CURRENT_BRACELETS = "current_bracelets";
+
+
+    public static Integer HAS_NEW_DATA_YES = 1;
+    public static Integer HAS_NEW_DATA_NO = 0;
 
 }

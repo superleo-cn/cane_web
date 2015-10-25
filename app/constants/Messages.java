@@ -14,8 +14,8 @@ public class Messages {
     public static String LOGOUT_ERROR_MESSAGE = "[System]-[Error]-[Public user ({}) logins failed. The error is {}.]";
 
     // Food Message
-    public static String CRANE_DATA_LIST_ERROR = "[Fetch crane data List Error]";
-    public static String CRANE_DATA_LIST_ERROR_MESSAGE = "[System]-[Error]-[Cane({}) requests crane data list failed. The error is {}.]";
+    public static String CANE_DATA_LIST_ERROR = "[Fetch cane data List Error]";
+    public static String CANE_DATA_LIST_ERROR_MESSAGE = "[System]-[Error]-[Cane({}) requests crane data list failed. The error is {}.]";
 
 
 }

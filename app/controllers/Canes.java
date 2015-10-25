@@ -56,7 +56,7 @@ public class Canes extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
         }
         return ok(result);
     }
@@ -88,7 +88,7 @@ public class Canes extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
         }
         return ok(result);
     }
@@ -135,7 +135,7 @@ public class Canes extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
         }
         return ok(result);
     }
@@ -167,7 +167,7 @@ public class Canes extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
         }
         return ok(result);
     }
@@ -224,7 +224,7 @@ public class Canes extends Basic {
             }
         } catch (Exception e) {
             result.put(Constants.STATUS, Constants.ERROR);
-            logger.error(Messages.CRANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
         }
         return ok(result);
     }
