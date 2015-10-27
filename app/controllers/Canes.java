@@ -99,7 +99,7 @@ public class Canes extends Basic {
      * @return
      */
     @With(TokenInterceptor.class)
-    public Result getGzContact() {
+    public Result getContacts() {
         CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
         ObjectNode result = Json.newObject();
         try {

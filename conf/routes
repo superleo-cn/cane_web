@@ -8,7 +8,7 @@ GET         /                                                                   
 # APP API
 POST        /fw/public/gz-datas/getGzData                                                  @controllers.Canes.getGzData()
 POST        /fw/public/gz-datas/updatedata                                                 @controllers.Canes.updatedata()
-POST        /fw/public/gz-datas/getGzContact                                               @controllers.Canes.getGzContact()
+POST        /fw/public/gz-datas/getContacts                                                @controllers.Canes.getContacts()
 POST        /fw/public/gz-datas/setContacts                                                @controllers.Canes.setContacts()
 POST        /fw/public/loginJson                                                           @controllers.Auths.loginJson()
 
