@@ -17,6 +17,7 @@ GET         /fw/public/gps-collections/last_record/1/devid_filter/:deviceId     
 
 # CANE API
 POST        /fw/public/api/gz-data-apis/firstUpload                                        @controllers.Canes.firstUpload()
+POST        /fw/public/api/gz-data-apis/currenttime                                        @controllers.Canes.currenttime()
 POST        /framewk/public/seeing/gps-collection/add                                      @controllers.GPSDatas.addGPSData()
 
 

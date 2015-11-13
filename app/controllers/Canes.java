@@ -228,4 +228,13 @@ public class Canes extends Basic {
         }
         return ok(result);
     }
+
+    /**
+     * [CANE] - [Interface] - [拐杖对时接口 ]
+     *
+     * @return
+     */
+    public Result currenttime() {
+        return ok("2015-01-01 00:00:00");
+    }
 }
