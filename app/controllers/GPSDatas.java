@@ -139,8 +139,22 @@ public class GPSDatas extends Basic {
      */
     public Result addGPSData() {
         ObjectNode result = Json.newObject();
-        GPSForm form = Form.form(GPSForm.class).bindFromRequest().get();
+        GPSForm form = null;
         try {
+            logger.info("=========START===========");
+            form = Form.form(GPSForm.class).bindFromRequest().get();
+            logger.info(form.getDevice_id());
+            logger.info(form.getAcc());
+            logger.info(form.getCellId());
+            logger.info(form.getLac());
+            logger.info(form.getLatitude());
+            logger.info(form.getLongitude());
+            logger.info(form.getPlmn());
+            logger.info(form.getFlag() + "");
+            logger.info(form.getOrientation() + "");
+            logger.info("=========END===========");
+
+
             Cane dbCane = Cane.findCraneById(form.getDevice_id());
             if (dbCane != null) {
                 // save GPS data
