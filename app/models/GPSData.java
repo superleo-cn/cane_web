@@ -89,7 +89,7 @@ public class GPSData {
         try {
             GPSData db = new GPSData();
             db.setCreated(new Date());
-            db.setDeviceId(form.getDevice_id());
+            db.setDeviceId(form.getDeviceId());
             db.setAcc(form.getAcc());
             db.setCellId(form.getCellId());
             db.setFlag(form.getFlag());
