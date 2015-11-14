@@ -5,6 +5,7 @@ import com.avaje.ebean.ExpressionList;
 import com.avaje.ebean.PagedList;
 import constants.Constants;
 import forms.GPSForm;
+import forms.SSOForm;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -18,10 +19,10 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "gps_collection")
-public class GPSData {
+@Table(name = "sos_location")
+public class SSOData {
 
-    final static Logger logger = LoggerFactory.getLogger(GPSData.class);
+    final static Logger logger = LoggerFactory.getLogger(SSOData.class);
 
     @Id
     private Long id;
@@ -40,17 +41,19 @@ public class GPSData {
 
     private String plmn;
 
-    private Integer orientation;
+    private Integer battery;
 
-    private Integer flag;
+    private String imsi;
 
-    private Date created;
+    private String state;
 
-    public static Pagination findGPSByDate(Pagination pagination, String deviceId, String date) {
+    private String time;
+
+    public static Pagination findSSOByDate(Pagination pagination, String deviceId, String date) {
         try {
             pagination = pagination == null ? new Pagination() : pagination;
-            ExpressionList<GPSData> expList = Ebean.find(GPSData.class).where();
-            PagedList<GPSData> pagingList = expList.findPagedList(pagination.currentPage - 1, pagination.pageSize);
+            ExpressionList<SSOData> expList = Ebean.find(SSOData.class).where();
+            PagedList<SSOData> pagingList = expList.findPagedList(pagination.currentPage - 1, pagination.pageSize);
             if (StringUtils.isNotEmpty(deviceId) && StringUtils.isNotEmpty(date)) {
                 Date startDate = DateUtils.parseDate(date, Constants.PATTERN_YYYYMMDDHHMMSS);
                 expList.where().eq("deviceId", deviceId);
@@ -69,9 +72,9 @@ public class GPSData {
         return null;
     }
 
-    public static GPSData findGPSByLatest(String deviceId) {
+    public static SSOData findSSOByLatest(String deviceId) {
         try {
-            ExpressionList<GPSData> expList = Ebean.find(GPSData.class).where();
+            ExpressionList<SSOData> expList = Ebean.find(SSOData.class).where();
             if (StringUtils.isNotEmpty(deviceId)) {
                 expList.where().eq("deviceId", deviceId);
                 expList.orderBy("created desc");
@@ -85,27 +88,20 @@ public class GPSData {
         return null;
     }
 
-    public static boolean save(GPSForm form) {
+    public static boolean save(SSOForm form) {
         try {
-            GPSData db = new GPSData();
-            Integer val = form.getOrientation();
-            Integer flag = 0;
-            if (val == null) {
-                val = form.getBattery() == null ? form.getBattery() : 0;
-            }
-            if (form.getLatitude() != null || form.getLongitude() != null) {
-                flag = 1;
-            }
-            db.setCreated(new Date());
+            SSOData db = new SSOData();
             db.setDeviceId(form.getDeviceId());
             db.setAcc(form.getAcc());
             db.setCellId(form.getCellId());
             db.setLac(form.getLac());
             db.setLatitude(form.getLatitude());
             db.setLongitude(form.getLongitude());
-            db.setOrientation(val);
             db.setPlmn(form.getPlmn());
-            db.setFlag(flag);
+            db.setBattery(form.getBattery());
+            db.setImsi(form.getImsi());
+            db.setState(form.getState());
+            db.setTime(form.getTime());
             Ebean.save(db);
             return true;
         } catch (Exception e) {
@@ -113,6 +109,7 @@ public class GPSData {
         }
         return false;
     }
+
 
     public Long getId() {
         return id;
@@ -178,27 +175,36 @@ public class GPSData {
         this.plmn = plmn;
     }
 
-    public Integer getOrientation() {
-        return orientation;
+    public Integer getBattery() {
+        return battery;
     }
 
-    public void setOrientation(Integer orientation) {
-        this.orientation = orientation;
+    public void setBattery(Integer battery) {
+        this.battery = battery;
     }
 
-    public Date getCreated() {
-        return created;
+    public String getImsi() {
+        return imsi;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setImsi(String imsi) {
+        this.imsi = imsi;
     }
 
-    public Integer getFlag() {
-        return flag;
+    public String getState() {
+        return state;
     }
 
-    public void setFlag(Integer flag) {
-        this.flag = flag;
+    public void setState(String state) {
+        this.state = state;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 }

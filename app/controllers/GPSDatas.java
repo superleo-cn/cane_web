@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import constants.Constants;
 import constants.Messages;
 import forms.GPSForm;
+import forms.SSOForm;
 import models.Cane;
 import models.GPSData;
+import models.SSOData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -133,7 +135,7 @@ public class GPSDatas extends Basic {
 
 
     /**
-     * [CANE] - [Interface] - [查询GPS信息(最近一条)]
+     * [CANE] - [Interface] - [GPS位置信息上传接口]
      *
      * @return
      */
@@ -183,6 +185,49 @@ public class GPSDatas extends Basic {
         } catch (Exception e) {
             result.replace(Constants.SIGN, Json.toJson("error"));
             result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDeviceId(), e});
+        }
+        return ok(result);
+    }
+
+
+    /**
+     * [CANE] - [Interface] - [上传紧急呼叫位置信息接口]
+     *
+     * @return
+     */
+    public Result addSSOData() {
+        ObjectNode result = Json.newObject();
+        SSOForm form = null;
+        try {
+            logger.info("=========START===========");
+            form = Form.form(SSOForm.class).bindFromRequest().get();
+            logger.info(form.getDeviceId());
+            logger.info(form.getAcc());
+            logger.info(form.getCellId());
+            logger.info(form.getLac());
+            logger.info(form.getLatitude());
+            logger.info(form.getLongitude());
+            logger.info(form.getPlmn());
+            logger.info(form.getBattery() + "");
+            logger.info(form.getImsi());
+            logger.info(form.getState());
+            logger.info(form.getTime());
+            logger.info("=========END===========");
+
+            Cane dbCane = Cane.findCraneById(form.getDeviceId());
+            if (dbCane != null) {
+                // save GPS data
+                if (SSOData.save(form)) {
+                    result.replace(Constants.SIGN, Json.toJson("success"));
+                } else {
+                    result.replace(Constants.SIGN, Json.toJson("error"));
+                }
+            } else {
+                result.replace(Constants.SIGN, Json.toJson("error"));
+            }
+        } catch (Exception e) {
+            result.replace(Constants.SIGN, Json.toJson("error"));
             logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDeviceId(), e});
         }
         return ok(result);

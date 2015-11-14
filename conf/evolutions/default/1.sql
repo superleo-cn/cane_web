@@ -54,6 +54,22 @@ create table gps_collection (
   constraint pk_gps_collection primary key (id))
 ;
 
+create table sos_location (
+  id                        bigint auto_increment not null,
+  device_id                 varchar(255),
+  latitude                  varchar(255),
+  longitude                 varchar(255),
+  acc                       varchar(255),
+  cell_id                   varchar(255),
+  lac                       varchar(255),
+  plmn                      varchar(255),
+  battery                   integer,
+  imsi                      varchar(255),
+  state                     varchar(255),
+  time                      varchar(255),
+  constraint pk_sos_location primary key (id))
+;
+
 
 
 
@@ -68,6 +84,8 @@ drop table gz_contact;
 drop table device_to_sim;
 
 drop table gps_collection;
+
+drop table sos_location;
 
 SET FOREIGN_KEY_CHECKS=1;
 
