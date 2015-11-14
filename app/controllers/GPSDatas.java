@@ -154,7 +154,6 @@ public class GPSDatas extends Basic {
             logger.info(form.getOrientation() + "");
             logger.info("=========END===========");
 
-
             Cane dbCane = Cane.findCraneById(form.getDeviceId());
             if (dbCane != null) {
                 // save GPS data

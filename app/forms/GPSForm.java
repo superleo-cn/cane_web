@@ -10,6 +10,8 @@ public class GPSForm {
 
     private Integer orientation;
 
+    private Integer battery;
+
     private String acc;
 
     private String cellId;
@@ -90,5 +92,13 @@ public class GPSForm {
 
     public void setFlag(Integer flag) {
         this.flag = flag;
+    }
+
+    public Integer getBattery() {
+        return battery;
+    }
+
+    public void setBattery(Integer battery) {
+        this.battery = battery;
     }
 }

@@ -88,6 +88,14 @@ public class GPSData {
     public static boolean save(GPSForm form) {
         try {
             GPSData db = new GPSData();
+            Integer val = form.getOrientation();
+            Integer flag = 0;
+            if (val == null) {
+                val = form.getBattery() == null ? form.getBattery() : 0;
+            }
+            if (form.getLatitude() != null || form.getLongitude() != null) {
+                flag = 1;
+            }
             db.setCreated(new Date());
             db.setDeviceId(form.getDeviceId());
             db.setAcc(form.getAcc());
@@ -96,8 +104,9 @@ public class GPSData {
             db.setLac(form.getLac());
             db.setLatitude(form.getLatitude());
             db.setLongitude(form.getLongitude());
-            db.setOrientation(form.getOrientation());
+            db.setOrientation(val);
             db.setPlmn(form.getPlmn());
+            db.setFlag(flag);
             Ebean.save(db);
             return true;
         } catch (Exception e) {
