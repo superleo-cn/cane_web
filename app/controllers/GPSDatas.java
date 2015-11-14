@@ -217,7 +217,7 @@ public class GPSDatas extends Basic {
 
             Cane dbCane = Cane.findCraneById(form.getDeviceId());
             if (dbCane != null) {
-                // save GPS data
+                // save SSO data
                 if (SSOData.save(form)) {
                     result.replace(Constants.SIGN, Json.toJson("success"));
                 } else {

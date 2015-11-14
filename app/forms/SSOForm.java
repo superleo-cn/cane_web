@@ -2,11 +2,15 @@ package forms;
 
 public class SSOForm {
 
-    private String deviceId1;
+    private String deviceId;
 
     private String latitude;
 
     private String longitude;
+
+    private Integer orientation;
+
+    private Integer battery;
 
     private String acc;
 
@@ -16,13 +20,7 @@ public class SSOForm {
 
     private String plmn;
 
-    private Integer battery;
-
-    private String imsi;
-
-    private String state;
-
-    private String time;
+    private Integer flag;
 
     public String getDeviceId() {
         return deviceId;
@@ -46,6 +44,14 @@ public class SSOForm {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(Integer orientation) {
+        this.orientation = orientation;
     }
 
     public String getAcc() {
@@ -80,35 +86,19 @@ public class SSOForm {
         this.plmn = plmn;
     }
 
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
     public Integer getBattery() {
         return battery;
     }
 
     public void setBattery(Integer battery) {
         this.battery = battery;
-    }
-
-    public String getImsi() {
-        return imsi;
-    }
-
-    public void setImsi(String imsi) {
-        this.imsi = imsi;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 }
