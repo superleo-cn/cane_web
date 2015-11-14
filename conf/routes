@@ -20,8 +20,7 @@ POST        /fw/public/api/gz-data-apis/firstUpload                             
 POST        /fw/public/api/gz-data-apis/currenttime                                        @controllers.Canes.currenttime()
 POST        /framewk/public/seeing/gps-collection/add/                                     @controllers.GPSDatas.addGPSData()
 POST        /fw/public/api/gz-data-apis/soslocation                                        @controllers.GPSDatas.addSSOData()
-
-
+POST        /fw/public/api/gz-data-apis/getStatus                                          @controllers.Canes.getStatus()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                                  @controllers.Assets.at(path="/public", file)

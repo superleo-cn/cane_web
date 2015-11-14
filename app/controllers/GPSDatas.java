@@ -179,11 +179,11 @@ public class GPSDatas extends Basic {
                     result.replace(Constants.STATUS, Json.toJson(Constants.MSG_NO));
                 }
             } else {
-                result.replace(Constants.SIGN, Json.toJson("error"));
+                result.replace(Constants.SIGN, Json.toJson(Constants.MSG_ERROR));
                 result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
             }
         } catch (Exception e) {
-            result.replace(Constants.SIGN, Json.toJson("error"));
+            result.replace(Constants.SIGN, Json.toJson(Constants.MSG_ERROR));
             result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
             logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDeviceId(), e});
         }
@@ -219,15 +219,15 @@ public class GPSDatas extends Basic {
             if (dbCane != null) {
                 // save SSO data
                 if (SSOData.save(form)) {
-                    result.replace(Constants.SIGN, Json.toJson("success"));
+                    result.replace(Constants.SIGN, Json.toJson(Constants.MSG_SUCCESS));
                 } else {
-                    result.replace(Constants.SIGN, Json.toJson("error"));
+                    result.replace(Constants.SIGN, Json.toJson(Constants.MSG_ERROR));
                 }
             } else {
-                result.replace(Constants.SIGN, Json.toJson("error"));
+                result.replace(Constants.SIGN, Json.toJson(Constants.MSG_ERROR));
             }
         } catch (Exception e) {
-            result.replace(Constants.SIGN, Json.toJson("error"));
+            result.replace(Constants.SIGN, Json.toJson(Constants.MSG_ERROR));
             logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDeviceId(), e});
         }
         return ok(result);

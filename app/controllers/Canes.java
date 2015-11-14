@@ -16,6 +16,7 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.With;
+import utils.MyUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -233,5 +234,60 @@ public class Canes extends Basic {
      */
     public Result currenttime() {
         return ok("2015-01-01 00:00:00");
+    }
+
+    /**
+     * [CANE] - [Interface] - [手杖查询接口]
+     *
+     * @return
+     */
+    public Result getStatus() {
+        CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
+        ObjectNode result = Json.newObject();
+        String finalVal;
+        try {
+            if (form != null) {
+                Cane dbCane = Cane.findCraneById(form.getDevice_id());
+                if (dbCane != null) {
+                    List<Contact> contacts = null;
+                    if (dbCane != null) {
+                        contacts = Contact.findContactByDeviceId(form.getDevice_id());
+                    }
+                    Map sosPhones = new HashMap<>();
+                    sosPhones.put("sos_one", dbCane.getSosOne());
+                    sosPhones.put("sos_two", dbCane.getSosTwo());
+                    sosPhones.put("gps_switch", dbCane.getGpsSwitch());
+                    result.replace(Constants.DATA, Json.toJson(sosPhones));
+                    // status
+                    result.put(Constants.STATUS, Constants.MSG_SUCCESS);
+                    // heart
+                    result.put(Constants.SIGN, "heart");
+                    // Phone num
+                    String phoneCon = "";
+                    if (contacts != null) {
+                        phoneCon = contacts.stream().map(c -> MyUtils.getUnicode(c.getName()) + ":" + c.getCellNumber()).collect(Collectors.joining(","));
+                        result.put("Phone_num", contacts.size());
+                    } else {
+                        result.put("Phone_num", 0);
+                    }
+                    finalVal = "Phone_con:" + phoneCon + "," + Json.toJson(result).toString();
+                } else {
+                    // 发送失败，设备号不存在
+                    // status
+                    result.put(Constants.STATUS, Constants.MSG_NO);
+                    // imsiback
+                    result.put(Constants.SIGN, "hrt_no");
+                    finalVal = Json.toJson(result).toString();
+                }
+            } else {
+                result.put(Constants.STATUS, Constants.FAILURE);
+                finalVal = Json.toJson(result).toString();
+            }
+        } catch (Exception e) {
+            result.put(Constants.STATUS, Constants.ERROR);
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            finalVal = Json.toJson(result).toString();
+        }
+        return ok(finalVal);
     }
 }

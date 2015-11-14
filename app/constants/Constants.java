@@ -28,6 +28,7 @@ public class Constants {
     public static String MSG_NO_REGISTER = "Not register";
     public static String MSG_SIM_ERROR = "Sim error";
     public static String MSG_SUCCESS = "Success";
+    public static String MSG_ERROR = "Error";
     public static String MSG_ILLEGAL = "Illegal";
     public static String MSG_NO = "NO";
 
