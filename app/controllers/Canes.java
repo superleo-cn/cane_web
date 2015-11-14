@@ -245,6 +245,11 @@ public class Canes extends Basic {
         CaneForm form = Form.form(CaneForm.class).bindFromRequest().get();
         ObjectNode result = Json.newObject();
         String finalVal;
+
+        logger.info("=========START===========");
+        logger.info(form.getDevice_id());
+        logger.info("=========END===========");
+
         try {
             if (form != null) {
                 Cane dbCane = Cane.findCraneById(form.getDevice_id());
