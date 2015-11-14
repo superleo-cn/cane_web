@@ -8,7 +8,7 @@ public class MyUtils {
         StringBuilder sb = new StringBuilder();
         if (StringUtils.isNoneEmpty(val)) {
             for (int i = 0; i < val.length(); i++) {
-                sb.append("\\u " + Integer.toHexString(val.charAt(i)));
+                sb.append("\\u" + Integer.toHexString(val.charAt(i)));
             }
         }
         return sb.toString();
