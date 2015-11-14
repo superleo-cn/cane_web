@@ -2,7 +2,7 @@ package forms;
 
 public class SSOForm {
 
-    private String deviceId;
+    private String deviceId1;
 
     private String latitude;
 
