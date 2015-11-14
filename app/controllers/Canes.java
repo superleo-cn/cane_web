@@ -17,10 +17,7 @@ import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.With;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Canes extends Basic {
@@ -197,7 +194,7 @@ public class Canes extends Basic {
                             sosPhones.put("gps_switch", dbCane.getGpsSwitch());
                             result.replace(Constants.DATA, Json.toJson(sosPhones));
                             // Time
-                            result.replace("time_init", Json.toJson(DateFormatUtils.format(dbCane.getCreated(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
+                            result.replace("time_init", Json.toJson(DateFormatUtils.format(new Date(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
                             // status
                             result.put(Constants.STATUS, Constants.MSG_SUCCESS);
                             // imsiback
@@ -217,7 +214,7 @@ public class Canes extends Basic {
                     // imsiback
                     result.put(Constants.SIGN, "imsiback");
                     // Time
-                    result.replace("time_init", Json.toJson(DateFormatUtils.format(dbCane.getCreated(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
+                    result.replace("time_init", Json.toJson(DateFormatUtils.format(new Date(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG)));
                 }
             } else {
                 result.put(Constants.STATUS, Constants.FAILURE);

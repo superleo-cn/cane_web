@@ -2,7 +2,7 @@ package forms;
 
 public class GPSForm {
 
-    private String device_id;
+    private String deviceId;
 
     private String latitude;
 
@@ -20,12 +20,12 @@ public class GPSForm {
 
     private Integer flag;
 
-    public String getDevice_id() {
-        return device_id;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setDevice_id(String device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getLatitude() {

@@ -143,7 +143,7 @@ public class GPSDatas extends Basic {
         try {
             logger.info("=========START===========");
             form = Form.form(GPSForm.class).bindFromRequest().get();
-            logger.info(form.getDevice_id());
+            logger.info(form.getDeviceId());
             logger.info(form.getAcc());
             logger.info(form.getCellId());
             logger.info(form.getLac());
@@ -155,7 +155,7 @@ public class GPSDatas extends Basic {
             logger.info("=========END===========");
 
 
-            Cane dbCane = Cane.findCraneById(form.getDevice_id());
+            Cane dbCane = Cane.findCraneById(form.getDeviceId());
             if (dbCane != null) {
                 // save GPS data
                 GPSData.save(form);
@@ -184,7 +184,7 @@ public class GPSDatas extends Basic {
         } catch (Exception e) {
             result.replace(Constants.SIGN, Json.toJson("error"));
             result.replace(Constants.STATUS, Json.toJson(Constants.MSG_ILLEGAL));
-            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDevice_id(), e});
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{form.getDeviceId(), e});
         }
         return ok(result);
     }
