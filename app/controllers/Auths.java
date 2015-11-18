@@ -28,6 +28,7 @@ public class Auths extends Basic {
                     logger.info("Token====>" + token);
                     result.put(Constants.STATUS, Constants.SUCCESS);
                     result.put(Constants.TOKEN, token);
+                    result.put("device_id", deviceId);
                 } else {
                     result.put(Constants.STATUS, Constants.FAILURE);
                 }
