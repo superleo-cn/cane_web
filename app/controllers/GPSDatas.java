@@ -18,6 +18,7 @@ import play.libs.Json;
 import play.mvc.Result;
 import utils.Pagination;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,60 @@ public class GPSDatas extends Basic {
      * @return
      */
     public Result findGPSByDate(String deviceId, String time, Integer page) {
+        // token checking
+        Result tokenResult = isValidToken(deviceId);
+        if (tokenResult != null) {
+            return tokenResult;
+        }
+
+        // Normal processing
+        ObjectNode result = Json.newObject();
+        try {
+            Pagination<GPSData> pagination = new Pagination<>(page);
+            pagination = GPSData.findGPSByDate(pagination, deviceId, time);
+            if (pagination != null) {
+                // header
+                Map<String, String> headers = new HashMap<>();
+                headers.put(Constants.CODE, "20061");
+                headers.put(Constants.MESSAGE, Constants.MSG_SUCCESS);
+                result.replace(Constants.STATUS, Json.toJson(headers));
+
+                // data
+                List<JsonNode> data = new ArrayList<>();
+                List<GPSData> list = pagination.getRecordList();
+                Integer currentPage = pagination.getCurrentPage();
+                if (CollectionUtils.isNotEmpty(list)) {
+                    for (GPSData gps : list) {
+                        Map gpsMap = new HashMap<>();
+                        gpsMap.put("latitude", gps.getLatitude());
+                        gpsMap.put("longitude", gps.getLongitude());
+                        gpsMap.put("created", DateFormatUtils.format(gps.getCreated(), Constants.PATTERN_YYYYMMDDHHMMSS_LONG));
+                        gpsMap.put("orientation", gps.getOrientation());
+                        gpsMap.put("acc", gps.getAcc());
+                        gpsMap.put("flag", gps.getFlag());
+                        gpsMap.put("cell_id", gps.getCellId());
+                        gpsMap.put("lac", gps.getLac());
+                        data.add(Json.toJson(gpsMap));
+                    }
+                    result.replace(Constants.DATA, Json.toJson(data));
+                } else {
+                    result.replace(Constants.DATA, Json.toJson(null));
+                }
+
+                // pageCount
+                result.replace(Constants.PAGE_COUNT, Json.toJson(pagination.getPageCount()));
+
+            } else {
+                result.put(Constants.STATUS, Constants.FAILURE);
+            }
+        } catch (Exception e) {
+            result.put(Constants.STATUS, Constants.ERROR);
+            logger.error(Messages.CANE_DATA_LIST_ERROR_MESSAGE, new Object[]{deviceId, e});
+        }
+        return ok(result);
+    }
+
+    public Result findGPSByDateBak(String deviceId, String time, Integer page) {
         // token checking
         Result tokenResult = isValidToken(deviceId);
         if (tokenResult != null) {
