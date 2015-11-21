@@ -1,4 +1,4 @@
-<img title="Build Status Images" src="https://travis-ci.org/superleo-cn/cane_web.svg">(https://travis-ci.org/superleo-cn/cane_web)
+[<img title="Build Status Images" src="https://travis-ci.org/superleo-cn/cane_web.svg">](https://travis-ci.org/superleo-cn/cane_web)
 
 # Cane API for both Hardwere and APP.
 
